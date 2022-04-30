@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Desafio.Knife
+namespace SliceIt.Knife
 {
     public sealed class KnifeController : MonoBehaviour
     {

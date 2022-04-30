@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Desafio.Slices
+namespace SliceIt.Slices
 {
     public sealed class Slice : MonoBehaviour
     {

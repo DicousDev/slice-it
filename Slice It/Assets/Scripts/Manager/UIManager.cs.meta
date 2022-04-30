@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: d05947004afb6b94098cde7a108f2c3b
+guid: 44cea49c32f107e4896410afd730c434
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
   - onStartGame: {fileID: 11400000, guid: eada405e00da1cf409bccb21609eb318, type: 2}
-  - knifeTarget: {instanceID: 0}
+  - tapToPlayText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

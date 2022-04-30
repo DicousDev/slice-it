@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-using Desafio.Slices;
+using SliceIt.Slices;
 
-namespace Desafio.Knife
+namespace SliceIt.Knife
 {
     public sealed class KnifeCollider : MonoBehaviour
     {
