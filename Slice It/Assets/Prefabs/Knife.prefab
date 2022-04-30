@@ -128,11 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5682329967925639078}
-  forceToUp: 200
-  canJump: 0
-  torque: 30
-  degressToForce: 85
-  directionToForce: {x: 0, y: 0, z: 0}
+  forceToUpShoot: 200
+  torqueShoot: 80
+  degressToShoot: 85
   onKnifeAttacked:
     m_PersistentCalls:
       m_Calls:

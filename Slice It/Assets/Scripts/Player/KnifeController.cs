@@ -6,12 +6,14 @@ using UnityEngine.Events;
 public class KnifeController : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private float forceToUp;
-    [SerializeField] private bool canJump = false;
-    [SerializeField] private float torque;
+    [SerializeField] private float forceToUpShoot = 200;
+    [SerializeField] private float torqueShoot = 80;
+    private bool canShoot = false;
+
     [Range(30, 85)]
-    [SerializeField] private float degressToForce = 85;
-    [SerializeField] private Vector3 directionToForce;
+    [SerializeField] private float degressToShoot = 85;
+    private Vector3 directionToShoot;
+
     [SerializeField] private UnityEvent onKnifeAttacked;
 
     private void Start()
@@ -23,32 +25,32 @@ public class KnifeController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            canJump = true;
+            canShoot = true;
             onKnifeAttacked?.Invoke();
         }
     }
 
     private void FixedUpdate()
     {
-        if(canJump)
+        if(canShoot)
         {
-            Jump();
+            Shoot();
         }
     }
 
-    private void Jump()
+    private void Shoot()
     {
         rb.isKinematic = false;
-        canJump = false;
-        rb.AddForce(directionToForce * forceToUp);
-        rb.AddTorque(Vector3.forward * torque);
+        canShoot = false;
+        rb.AddForce(directionToShoot * forceToUpShoot);
+        rb.AddTorque(Vector3.forward * torqueShoot);
     }
 
     private void CalculateDirectionToForce()
     {
-        float x = Mathf.Cos(degressToForce * Mathf.Deg2Rad);
-        float y = Mathf.Sin(degressToForce * Mathf.Deg2Rad);
-        directionToForce = new Vector3(x, y, 0);
+        float x = Mathf.Cos(degressToShoot * Mathf.Deg2Rad);
+        float y = Mathf.Sin(degressToShoot * Mathf.Deg2Rad);
+        directionToShoot = new Vector3(x, y, 0);
     }
 
     private void GameOver()
