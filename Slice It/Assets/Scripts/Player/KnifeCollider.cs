@@ -19,13 +19,18 @@ public class KnifeCollider : MonoBehaviour
         collider.enabled = true;
     }
 
+    private void SleepKnife()
+    {
+        collider.enabled = false;
+        rb.isKinematic = true;
+    }
+
     private void OnTriggerEnter(Collider collider)
     {
         Ground isGround = collider.GetComponent<Ground>();
         if(isGround != null)
         {
-            this.collider.enabled = false;
-            rb.isKinematic = true;
+            SleepKnife();
         }
     }
 }
