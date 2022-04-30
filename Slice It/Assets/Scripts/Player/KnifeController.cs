@@ -26,7 +26,11 @@ namespace Desafio.Knife
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 canShoot = true;
-                onKnifeAttacked?.Invoke();
+
+                if(rb.isKinematic)
+                {
+                    onKnifeAttacked?.Invoke();
+                }
             }
         }
 
