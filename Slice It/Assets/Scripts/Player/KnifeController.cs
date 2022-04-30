@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class KnifeController : MonoBehaviour
+public sealed class KnifeController : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float forceToUpShoot = 200;

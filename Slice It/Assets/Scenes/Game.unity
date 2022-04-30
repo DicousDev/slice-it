@@ -438,7 +438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2909574235779225841, guid: 5bfa5ecc5d7c83f40b5f7e04f3306f6f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.662
+      value: 0.842
       objectReference: {fileID: 0}
     - target: {fileID: 2909574235779225841, guid: 5bfa5ecc5d7c83f40b5f7e04f3306f6f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -450,31 +450,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2909574235779225841, guid: 5bfa5ecc5d7c83f40b5f7e04f3306f6f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.99999297
       objectReference: {fileID: 0}
     - target: {fileID: 2909574235779225841, guid: 5bfa5ecc5d7c83f40b5f7e04f3306f6f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.0017406666
       objectReference: {fileID: 0}
     - target: {fileID: 2909574235779225841, guid: 5bfa5ecc5d7c83f40b5f7e04f3306f6f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.00067429704
       objectReference: {fileID: 0}
     - target: {fileID: 2909574235779225841, guid: 5bfa5ecc5d7c83f40b5f7e04f3306f6f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.003271274
       objectReference: {fileID: 0}
     - target: {fileID: 2909574235779225841, guid: 5bfa5ecc5d7c83f40b5f7e04f3306f6f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -0.199
       objectReference: {fileID: 0}
     - target: {fileID: 2909574235779225841, guid: 5bfa5ecc5d7c83f40b5f7e04f3306f6f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 0.078
       objectReference: {fileID: 0}
     - target: {fileID: 2909574235779225841, guid: 5bfa5ecc5d7c83f40b5f7e04f3306f6f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -0.375
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bfa5ecc5d7c83f40b5f7e04f3306f6f, type: 3}
@@ -535,7 +535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5682329967925639085, guid: f61e3108c8ebae045b395b2fb730f86e, type: 3}
       propertyPath: torqueShoot
-      value: 80
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 5682329967925639085, guid: f61e3108c8ebae045b395b2fb730f86e, type: 3}
       propertyPath: forceToUpShoot

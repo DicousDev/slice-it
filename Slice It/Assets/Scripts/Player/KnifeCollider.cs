@@ -1,8 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class KnifeCollider : MonoBehaviour
+using Desafio.Slices;
+
+public sealed class KnifeCollider : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Collider collider;
@@ -25,12 +26,23 @@ public class KnifeCollider : MonoBehaviour
         rb.isKinematic = true;
     }
 
+    private void Slice(Slice slice)
+    {
+        slice.Execute();
+    }
+
     private void OnTriggerEnter(Collider collider)
     {
         Ground isGround = collider.GetComponent<Ground>();
         if(isGround != null)
         {
             SleepKnife();
+        }
+
+        Slice canSlice = collider.GetComponent<Slice>();
+        if(canSlice != null)
+        {
+            Slice(canSlice);
         }
     }
 }
