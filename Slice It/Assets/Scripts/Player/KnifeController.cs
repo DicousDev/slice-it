@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-
 namespace SliceIt.Knife
 {
     public sealed class KnifeController : MonoBehaviour
@@ -57,20 +56,6 @@ namespace SliceIt.Knife
             float x = Mathf.Cos(degressToShoot * Mathf.Deg2Rad);
             float y = Mathf.Sin(degressToShoot * Mathf.Deg2Rad);
             directionToShoot = new Vector3(x, y, 0);
-        }
-
-        private void GameOver()
-        {
-            Debug.Log("Game Over");
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            GameOverCollider isGameOver = collision.gameObject.GetComponent<GameOverCollider>();
-            if (isGameOver != null)
-            {
-                GameOver();
-            }
         }
     }
 }

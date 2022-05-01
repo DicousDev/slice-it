@@ -8,9 +8,10 @@ namespace SliceIt.Knife
 {
     public sealed class KnifeCollider : MonoBehaviour
     {
-        [SerializeField] private GameEvent onAddPoint;
+        [SerializeField] private GameEvent onAddPoint = default;
+        [SerializeField] private GameEvent onGameOver = default;
         [SerializeField] private Rigidbody rb;
-        [SerializeField] private Collider collider;
+        private Collider thisCollider;
         private Transform thisTransform;
 
         [SerializeField] private float delayToStartDetectorColliderInSeconds = 1.0f;
@@ -23,6 +24,7 @@ namespace SliceIt.Knife
         private void Awake()
         {
             thisTransform = this.transform;
+            thisCollider = GetComponent<Collider>();
         }
 
         private void FixedUpdate()
@@ -38,14 +40,14 @@ namespace SliceIt.Knife
         private IEnumerator EnableColliderInSecondsCoroutine()
         {
             yield return new WaitForSeconds(delayToStartDetectorColliderInSeconds);
-            collider.enabled = true;
+            thisCollider.enabled = true;
             isSleepingKnife = true;
         }
 
         private void SleepKnife()
         {
             rb.isKinematic = true;
-            collider.enabled = false;
+            thisCollider.enabled = false;
 
             if (isSleepingKnife)
             {
@@ -80,24 +82,35 @@ namespace SliceIt.Knife
                 return;
 
             Slice slice = hit.collider.gameObject.GetComponent<Slice>();
-            if(slice == null)
-                return;
+            if(slice != null)
+            {
+                Slice(slice);
+            }
+            
+            GameOverCollider gameOverCollider = hit.collider.gameObject.GetComponent<GameOverCollider>();
+            if(gameOverCollider != null)
+            {
+                GameOver();
+            }
+        }
 
-            Slice(slice);
+        private void GameOver()
+        {
+            onGameOver.Raise();
         }
 
         private void OnTriggerEnter(Collider collider)
         {
-            Ground isGround = collider.GetComponent<Ground>();
-            if(isGround != null)
-            {
-                SleepKnife();
-            }
-
             Slice canSlice = collider.GetComponent<Slice>();
             if(canSlice != null)
             {
                 Slice(canSlice);
+            }
+
+            GameOverCollider isGameOver = collider.GetComponent<GameOverCollider>();
+            if(isGameOver != null)
+            {
+                GameOver();
             }
         }
     }

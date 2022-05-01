@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onStartGame: {fileID: 11400000, guid: eada405e00da1cf409bccb21609eb318, type: 2}
+  onGameOver: {fileID: 11400000, guid: 1e7d00964c77e7f46974d0f12e5a023e, type: 2}
   tapToPlayText: {fileID: 0}
+  tapToPlayAgainText: {fileID: 0}
   pointsText: {fileID: 0}
