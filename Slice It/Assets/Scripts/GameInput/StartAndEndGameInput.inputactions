@@ -1,0 +1,45 @@
+{
+    "name": "StartAndEndGameInput",
+    "maps": [
+        {
+            "name": "StartEnd",
+            "id": "d58bcfe4-2257-4126-a1ec-ba323b009a9b",
+            "actions": [
+                {
+                    "name": "StartEnd",
+                    "type": "Button",
+                    "id": "dda9572b-d584-4900-ba9d-d46a5c592007",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "68fa0b8a-57e9-499d-a816-3d99ee613192",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartEnd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f1ecf8a-2cf7-411e-8a18-51f08877f8b1",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartEnd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

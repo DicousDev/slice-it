@@ -18,7 +18,7 @@ namespace SliceIt.Knife
         [SerializeField] private float distanceOfRaycastToCheckTipsOfKnife = 0.045f;
         [SerializeField] private LayerMask maskToTipsOfKnife;
 
-        private bool isSleepingKnife = true;
+        [SerializeField] private bool isSleepingKnife = false;
 
         private void Awake()
         {
@@ -40,7 +40,7 @@ namespace SliceIt.Knife
         {
             yield return new WaitForSeconds(delayToStartDetectorColliderInSeconds);
             thisCollider.enabled = true;
-            isSleepingKnife = true;
+            isSleepingKnife = false;
         }
 
         private void checkIfTheKnifeTipIsCollidingWithRaycast()
@@ -50,7 +50,7 @@ namespace SliceIt.Knife
             bool isColliding = Physics.Raycast(rayDirection, out hit, distanceOfRaycastToCheckTipsOfKnife, maskToTipsOfKnife);
             Debug.DrawRay(thisTransform.position, thisTransform.right * distanceOfRaycastToCheckTipsOfKnife, Color.red);
 
-            if(isColliding)
+            if (isColliding)
             {
                 SleepKnife();
             }
@@ -63,12 +63,11 @@ namespace SliceIt.Knife
 
         private void SleepKnife()
         {
-            rb.isKinematic = true;
-            thisCollider.enabled = false;
-
-            if (isSleepingKnife)
+            if(!isSleepingKnife)
             {
-                isSleepingKnife = false;
+                rb.isKinematic = true;
+                thisCollider.enabled = false;
+                isSleepingKnife = true;                
             }
         }
 

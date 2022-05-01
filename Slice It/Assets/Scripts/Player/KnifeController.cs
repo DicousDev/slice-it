@@ -20,6 +20,23 @@ namespace SliceIt.Knife
 
         [SerializeField] private UnityEvent onKnifeAttacked;
 
+        private KnifeInputActions knifeInputActions;
+
+        private void OnEnable()
+        {
+            knifeInputActions.Enable();
+        }
+
+        private void OnDisable()
+        {
+            knifeInputActions.Disable();
+        }
+
+        private void Awake()
+        {
+            knifeInputActions = new KnifeInputActions();
+        }
+
         private void Start()
         {
             CalculateDirectionToForce();
@@ -27,7 +44,7 @@ namespace SliceIt.Knife
 
         private void Update()
         {
-            if(canAgainShoot && Input.GetMouseButtonDown(0))
+            if(canAgainShoot && knifeInputActions.Shoot.Shoot.triggered)
             {
                 canShoot = true;
                 canAgainShoot = false;

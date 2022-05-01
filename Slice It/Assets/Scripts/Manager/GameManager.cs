@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using SliceIt.ScriptableObjects.Utils.Events;
 using SliceIt.Enum;
+using SliceIt.GameInput;
 
 namespace SliceIt.Manager
 {
@@ -14,17 +15,25 @@ namespace SliceIt.Manager
         [SerializeField] private GameEvent onGameOver = default;
         [SerializeField] private GameEvent onAddPoints = default;
         private int points;
+        private StartAndEndGameInput gameInput;
 
         private void OnEnable()
         {
+            gameInput.Enable();
             onAddPoints.onGameEvent += AddPoint;
             onGameOver.onGameEvent += GameOver;
         }
 
         private void OnDisable()
         {
+            gameInput.Disable();
             onAddPoints.onGameEvent -= AddPoint;
             onGameOver.onGameEvent -= GameOver;
+        }
+
+        private void Awake()
+        {
+            gameInput = new StartAndEndGameInput();
         }
 
         private void Update()
@@ -47,7 +56,7 @@ namespace SliceIt.Manager
 
         private void CheckToStartGame()
         {
-            if (gameState == GameState.START && Input.GetMouseButtonDown(0))
+            if (gameState == GameState.START && gameInput.StartEnd.StartEnd.triggered)
             {
                 gameState = GameState.GAME;
                 onStartGame.Raise();
@@ -56,7 +65,7 @@ namespace SliceIt.Manager
 
         private void CheckInGameOverToReloadLevel()
         {
-            if(gameState == GameState.GAMEOVER && Input.GetMouseButtonDown(0))
+            if(gameState == GameState.GAMEOVER && gameInput.StartEnd.StartEnd.triggered)
             {
                 SceneManager.LoadScene(0);
                 Time.timeScale = 1;

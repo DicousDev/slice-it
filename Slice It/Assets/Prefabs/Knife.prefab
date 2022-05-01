@@ -132,6 +132,7 @@ MonoBehaviour:
   forceToUpShoot: 200
   torqueShoot: 160
   degressToShoot: 85
+  delayToAgainShoot: 0.24
   onKnifeAttacked:
     m_PersistentCalls:
       m_Calls:
@@ -258,11 +259,12 @@ MonoBehaviour:
   onAddPoint: {fileID: 11400000, guid: 1676f1e2aa93660439e6e1e0f12f51f2, type: 2}
   onGameOver: {fileID: 11400000, guid: 1e7d00964c77e7f46974d0f12e5a023e, type: 2}
   rb: {fileID: 5682329967925639078}
-  delayToStartDetectorColliderInSeconds: 1
+  delayToStartDetectorColliderInSeconds: 0.11
   distanceOfRaycastToCheckTipsOfKnife: 0.09
   maskToTipsOfKnife:
     serializedVersion: 2
     m_Bits: 64
+  isSleepingKnife: 0
 --- !u!1 &6541893160801503409
 GameObject:
   m_ObjectHideFlags: 0
