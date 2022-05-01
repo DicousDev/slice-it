@@ -15,7 +15,6 @@ namespace SliceIt.Knife
         private Transform thisTransform;
 
         [SerializeField] private float delayToStartDetectorColliderInSeconds = 1.0f;
-
         [SerializeField] private float distanceOfRaycastToCheckTipsOfKnife = 0.045f;
         [SerializeField] private LayerMask maskToTipsOfKnife;
 
@@ -44,28 +43,6 @@ namespace SliceIt.Knife
             isSleepingKnife = true;
         }
 
-        private void SleepKnife()
-        {
-            rb.isKinematic = true;
-            thisCollider.enabled = false;
-
-            if (isSleepingKnife)
-            {
-                isSleepingKnife = false;
-            }
-        }
-
-        private void Slice(Slice slice)
-        {
-            slice.Execute();
-            AddPointsAfterSlicing();
-        }
-
-        private void AddPointsAfterSlicing()
-        {
-            onAddPoint.Raise();
-        }
-
         private void checkIfTheKnifeTipIsCollidingWithRaycast()
         {
             RaycastHit hit;
@@ -81,17 +58,44 @@ namespace SliceIt.Knife
             if(hit.collider == null)
                 return;
 
-            Slice slice = hit.collider.gameObject.GetComponent<Slice>();
-            if(slice != null)
+            KnifeColliderTypes(hit.collider.gameObject);
+        }
+
+        private void SleepKnife()
+        {
+            rb.isKinematic = true;
+            thisCollider.enabled = false;
+
+            if (isSleepingKnife)
+            {
+                isSleepingKnife = false;
+            }
+        }
+
+        private void OnTriggerEnter(Collider collider)
+        {
+            KnifeColliderTypes(collider.gameObject);
+        }
+
+        private void KnifeColliderTypes(GameObject target)
+        {
+            Slice slice = target.GetComponent<Slice>();
+            if (slice != null)
             {
                 Slice(slice);
             }
-            
-            GameOverCollider gameOverCollider = hit.collider.gameObject.GetComponent<GameOverCollider>();
-            if(gameOverCollider != null)
+
+            GameOverCollider gameOverCollider = target.GetComponent<GameOverCollider>();
+            if (gameOverCollider != null)
             {
                 GameOver();
             }
+        }
+
+        private void Slice(Slice slice)
+        {
+            slice.Execute();
+            AddPointsAfterSlicing();
         }
 
         private void GameOver()
@@ -99,19 +103,9 @@ namespace SliceIt.Knife
             onGameOver.Raise();
         }
 
-        private void OnTriggerEnter(Collider collider)
+        private void AddPointsAfterSlicing()
         {
-            Slice canSlice = collider.GetComponent<Slice>();
-            if(canSlice != null)
-            {
-                Slice(canSlice);
-            }
-
-            GameOverCollider isGameOver = collider.GetComponent<GameOverCollider>();
-            if(isGameOver != null)
-            {
-                GameOver();
-            }
+            onAddPoint.Raise();
         }
     }
 }
