@@ -55,13 +55,15 @@ namespace SliceIt.Knife
             Ray rayDirection = new Ray(thisTransform.position, thisTransform.right);
             bool isColliding = Physics.Raycast(rayDirection, out hit, distanceOfRaycastToCheckTipsOfKnife, maskToTipsOfKnife);
             Debug.DrawRay(thisTransform.position, thisTransform.right * distanceOfRaycastToCheckTipsOfKnife, Color.red);
+            /*            Collider[] colliding = Physics.OverlapSphere(thisTransform.position, distanceOfRaycastToCheckTipsOfKnife, maskToTipsOfKnife);
+                        bool isColliding = colliding.Length > 0;*/
 
             if (isColliding)
             {
                 SleepKnife();
             }
 
-            if(hit.collider == null)
+            if (hit.collider == null)
                 return;
 
             KnifeColliderTypes(hit.collider.gameObject);
@@ -70,7 +72,6 @@ namespace SliceIt.Knife
         private void Explosion()
         {
             Collider[] slices = Physics.OverlapSphere(thisTransform.position, explosionRadius, explosionLayer);
-
             foreach(Collider slice in slices)
             {
                 Rigidbody rb = slice.gameObject.GetComponent<Rigidbody>();
@@ -132,6 +133,9 @@ namespace SliceIt.Knife
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, explosionRadius);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, distanceOfRaycastToCheckTipsOfKnife);
         }
     }
 }
