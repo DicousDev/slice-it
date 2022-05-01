@@ -138,7 +138,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5446457260610412204}
         m_TargetAssemblyTypeName: SliceIt.Knife.KnifeCollider, Assembly-CSharp
-        m_MethodName: EnabledColliderInSeconds
+        m_MethodName: OnEnabledColliderInSeconds
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -264,6 +264,12 @@ MonoBehaviour:
   maskToTipsOfKnife:
     serializedVersion: 2
     m_Bits: 64
+  explosionForce: 0.4
+  explosionRadius: 0.11
+  upwards: 0.06
+  explosionLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &6541893160801503409
 GameObject:
   m_ObjectHideFlags: 0

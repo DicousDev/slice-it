@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using SliceIt.ScriptableObjects.Utils.Events;
 
@@ -18,6 +19,11 @@ namespace SliceIt.Knife
         [SerializeField] private float distanceOfRaycastToCheckTipsOfKnife = 0.09f;
         [SerializeField] private LayerMask maskToTipsOfKnife;
 
+        [SerializeField] private float explosionForce = 0.4f;
+        [SerializeField] private float explosionRadius = 0.11f;
+        [SerializeField] private float upwards = 0.06f;
+        [SerializeField] private LayerMask explosionLayer;
+
         private bool isSleepingKnife = false;
 
         private void Awake()
@@ -31,7 +37,7 @@ namespace SliceIt.Knife
             checkIfTheKnifeTipIsCollidingWithRaycast();
         }
 
-        public void EnabledColliderInSeconds()
+        public void OnEnabledColliderInSeconds()
         {
             StartCoroutine(EnableColliderInSecondsCoroutine());
         }
@@ -59,6 +65,20 @@ namespace SliceIt.Knife
                 return;
 
             KnifeColliderTypes(hit.collider.gameObject);
+        }
+
+        private void Explosion()
+        {
+            Collider[] slices = Physics.OverlapSphere(thisTransform.position, explosionRadius, explosionLayer);
+
+            foreach(Collider slice in slices)
+            {
+                Rigidbody rb = slice.gameObject.GetComponent<Rigidbody>();
+                if(rb != null)
+                {
+                    rb.AddExplosionForce(explosionForce, thisTransform.position, explosionRadius, upwards, ForceMode.Impulse);
+                }
+            }
         }
 
         private void SleepKnife()
@@ -95,6 +115,7 @@ namespace SliceIt.Knife
         {
             slice.Execute();
             AddPointsAfterSlicing();
+            Explosion();
         }
 
         private void GameOver()
@@ -105,6 +126,12 @@ namespace SliceIt.Knife
         private void AddPointsAfterSlicing()
         {
             onAddPoint.Raise();
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, explosionRadius);
         }
     }
 }
