@@ -8,11 +8,11 @@ namespace SliceIt.Manager
 {
     public sealed class GameManager : MonoBehaviour
     {
+        public static event Action<int> onAddedPoint;
         [SerializeField] private GameState gameState = GameState.START;
         [SerializeField] private GameEvent onStartGame = default;
         [SerializeField] private GameEvent onGameOver = default;
         [SerializeField] private GameEvent onAddPoints = default;
-        public static event Action<int> onAddedPoint;
         private int points;
 
         private void OnEnable()
@@ -47,7 +47,7 @@ namespace SliceIt.Manager
 
         private void CheckToStartGame()
         {
-            if (gameState == GameState.START && Input.GetKeyDown(KeyCode.Space))
+            if (gameState == GameState.START && Input.GetMouseButtonDown(0))
             {
                 gameState = GameState.GAME;
                 onStartGame.Raise();

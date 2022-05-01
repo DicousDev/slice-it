@@ -24,10 +24,9 @@ namespace SliceIt.Knife
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetMouseButtonDown(0))
             {
                 canShoot = true;
-
                 if(rb.isKinematic)
                 {
                     onKnifeAttacked?.Invoke();
