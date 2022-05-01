@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using SliceIt.ScriptableObjects.Utils.Events;
@@ -11,6 +13,10 @@ namespace SliceIt.Manager
         [SerializeField] private TextMeshProUGUI tapToPlayText;
         [SerializeField] private TextMeshProUGUI tapToPlayAgainText;
         [SerializeField] private TextMeshProUGUI pointsText;
+        [SerializeField] private float pointsFontSizeFinalAnimation = 50;
+        [SerializeField] private float pointsFontSpeedAnimation = 0.7f;
+        [SerializeField] private float delaySpeedPointsFont = 0.01f;
+        private bool isAnimationPoints = false;
 
         private void OnEnable()
         {
@@ -18,7 +24,6 @@ namespace SliceIt.Manager
             onStartGame.onGameEvent += EnabledPointsText;
             onGameOver.onGameEvent += GameOver;
             GameManager.onAddedPoint += UpdatePoints;
-
         }
 
         private void OnDisable()
@@ -36,6 +41,7 @@ namespace SliceIt.Manager
 
         private void UpdatePoints(int points)
         {
+            StartCoroutine(AnimationPoints());
             pointsText.text = "Points: " + points.ToString();
         }
 
@@ -48,6 +54,25 @@ namespace SliceIt.Manager
         private void DisableTapToPlay()
         {
             tapToPlayText.enabled = false;
+        }
+
+        private IEnumerator AnimationPoints()
+        {
+            isAnimationPoints = true;
+            float fontSizeStart = pointsText.fontSizeMax;
+            while (pointsText.fontSize < pointsFontSizeFinalAnimation)
+            {
+                pointsText.fontSizeMax += pointsFontSpeedAnimation;
+                yield return new WaitForSeconds(delaySpeedPointsFont);
+            }
+
+            while(fontSizeStart < pointsText.fontSize)
+            {
+                pointsText.fontSizeMax -= pointsFontSpeedAnimation;
+                yield return new WaitForSeconds(delaySpeedPointsFont);
+            }
+
+            isAnimationPoints = false;
         }
     }
 }
