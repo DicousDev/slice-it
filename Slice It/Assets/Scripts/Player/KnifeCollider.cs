@@ -14,11 +14,11 @@ namespace SliceIt.Knife
         private Collider thisCollider;
         private Transform thisTransform;
 
-        [SerializeField] private float delayToStartDetectorColliderInSeconds = 1.0f;
-        [SerializeField] private float distanceOfRaycastToCheckTipsOfKnife = 0.045f;
+        [SerializeField] private float delayToStartDetectorColliderInSeconds = 0.11f;
+        [SerializeField] private float distanceOfRaycastToCheckTipsOfKnife = 0.09f;
         [SerializeField] private LayerMask maskToTipsOfKnife;
 
-        [SerializeField] private bool isSleepingKnife = false;
+        private bool isSleepingKnife = false;
 
         private void Awake()
         {

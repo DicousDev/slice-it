@@ -131,13 +131,13 @@ MonoBehaviour:
   rb: {fileID: 5682329967925639078}
   forceToUpShoot: 200
   torqueShoot: 160
-  degressToShoot: 85
-  delayToAgainShoot: 0.24
-  onKnifeAttacked:
+  angleToShoot: 85
+  delayToAgainShootInSeconds: 0.5
+  onKnifeShooted:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5446457260610412204}
-        m_TargetAssemblyTypeName: KnifeCollider, Assembly-CSharp
+        m_TargetAssemblyTypeName: SliceIt.Knife.KnifeCollider, Assembly-CSharp
         m_MethodName: EnabledColliderInSeconds
         m_Mode: 1
         m_Arguments:
@@ -264,7 +264,6 @@ MonoBehaviour:
   maskToTipsOfKnife:
     serializedVersion: 2
     m_Bits: 64
-  isSleepingKnife: 0
 --- !u!1 &6541893160801503409
 GameObject:
   m_ObjectHideFlags: 0

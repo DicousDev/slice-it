@@ -8,18 +8,17 @@ namespace SliceIt.Knife
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float forceToUpShoot = 200;
         [SerializeField] private float torqueShoot = 80;
-        private bool canShoot = false;
-        private bool canAgainShoot = false;
+        private bool readyToShoot = false;
+        private bool readyAgainShoot = false;
 
         [Range(30, 85)]
-        [SerializeField] private float degressToShoot = 85;
+        [SerializeField] private float angleToShoot = 85;
         private Vector3 directionToShoot;
 
-        [SerializeField] private float delayToAgainShoot = 0.5f;
-        private float delayToAgainShootCurrent;
+        [SerializeField] private float delayToAgainShootInSeconds = 0.5f;
+        private float delayToAgainShootInSecondsCurrent;
 
-        [SerializeField] private UnityEvent onKnifeAttacked;
-
+        [SerializeField] private UnityEvent onKnifeShooted;
         private KnifeInputActions knifeInputActions;
 
         private void OnEnable()
@@ -39,20 +38,14 @@ namespace SliceIt.Knife
 
         private void Start()
         {
-            CalculateDirectionToForce();
+            CalculateDirectionToShoot();
         }
 
         private void Update()
         {
-            if(canAgainShoot && knifeInputActions.Shoot.Shoot.triggered)
+            if(CanStartShoot())
             {
-                canShoot = true;
-                canAgainShoot = false;
-                delayToAgainShootCurrent = delayToAgainShoot;
-                if (rb.isKinematic)
-                {
-                    onKnifeAttacked?.Invoke();
-                }
+                StartShoot();
             }
 
             CheckDelayTimeToAgainShoot();
@@ -60,33 +53,54 @@ namespace SliceIt.Knife
 
         private void FixedUpdate()
         {
-            if(canShoot)
+            if(readyToShoot)
             {
                 Shoot();
             }
         }
 
+        private bool CanStartShoot()
+        {
+            return readyAgainShoot && knifeInputActions.Shoot.Shoot.triggered;
+        }
+
+        private void StartShoot()
+        {
+            readyToShoot = true;
+            readyAgainShoot = false;
+            ResetTimeToAgainShoot();
+            if (rb.isKinematic)
+            {
+                onKnifeShooted?.Invoke();
+            }
+        }
+
+        private void ResetTimeToAgainShoot()
+        {
+            delayToAgainShootInSecondsCurrent = delayToAgainShootInSeconds;
+        }
+
         private void Shoot()
         {
             rb.isKinematic = false;
-            canShoot = false;
+            readyToShoot = false;
             rb.AddForce(directionToShoot * forceToUpShoot);
             rb.AddTorque(Vector3.forward * torqueShoot);
         }
 
         private void CheckDelayTimeToAgainShoot()
         {
-            delayToAgainShootCurrent -= Time.deltaTime;
-            if (delayToAgainShootCurrent <= 0)
+            delayToAgainShootInSecondsCurrent -= Time.deltaTime;
+            if (delayToAgainShootInSecondsCurrent <= 0)
             {
-                canAgainShoot = true;
+                readyAgainShoot = true;
             }
         }
 
-        private void CalculateDirectionToForce()
+        private void CalculateDirectionToShoot()
         {
-            float x = Mathf.Cos(degressToShoot * Mathf.Deg2Rad);
-            float y = Mathf.Sin(degressToShoot * Mathf.Deg2Rad);
+            float x = Mathf.Cos(angleToShoot * Mathf.Deg2Rad);
+            float y = Mathf.Sin(angleToShoot * Mathf.Deg2Rad);
             directionToShoot = new Vector3(x, y, 0);
         }
     }
