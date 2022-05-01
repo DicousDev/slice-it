@@ -4,7 +4,7 @@ using SliceIt.ScriptableObjects.Utils.Events;
 
 namespace SliceIt.Manager
 {
-    public class UIManager : MonoBehaviour
+    public sealed class UIManager : MonoBehaviour
     {
         [SerializeField] private GameEvent onStartGame = default;
         [SerializeField] private TextMeshProUGUI tapToPlayText;

@@ -25,7 +25,7 @@ namespace SliceIt.Knife
 
         private void FixedUpdate()
         {
-            checkIfTheKnifeTipIsColliding();
+            checkIfTheKnifeTipIsCollidingWithRaycast();
         }
 
         public void EnabledColliderInSeconds()
@@ -56,7 +56,7 @@ namespace SliceIt.Knife
             slice.Execute();
         }
 
-        private void checkIfTheKnifeTipIsColliding()
+        private void checkIfTheKnifeTipIsCollidingWithRaycast()
         {
             RaycastHit hit;
             Ray rayDirection = new Ray(thisTransform.position, thisTransform.right);
