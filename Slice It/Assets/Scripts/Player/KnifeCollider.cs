@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using SliceIt.ScriptableObjects.Utils.Events;
 
 using SliceIt.Slices;
 
@@ -7,6 +8,7 @@ namespace SliceIt.Knife
 {
     public sealed class KnifeCollider : MonoBehaviour
     {
+        [SerializeField] private GameEvent onAddPoint;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private Collider collider;
         private Transform thisTransform;
@@ -54,6 +56,12 @@ namespace SliceIt.Knife
         private void Slice(Slice slice)
         {
             slice.Execute();
+            AddPointsAfterSlicing();
+        }
+
+        private void AddPointsAfterSlicing()
+        {
+            onAddPoint.Raise();
         }
 
         private void checkIfTheKnifeTipIsCollidingWithRaycast()

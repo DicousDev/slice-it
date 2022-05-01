@@ -5,7 +5,9 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - onStartGame: {fileID: 11400000, guid: eada405e00da1cf409bccb21609eb318, type: 2}
+  - onAddPoints: {fileID: 11400000, guid: 1676f1e2aa93660439e6e1e0f12f51f2, type: 2}
   - tapToPlayText: {instanceID: 0}
+  - pointsText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

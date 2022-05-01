@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+
 namespace SliceIt.Knife
 {
     public sealed class KnifeController : MonoBehaviour
@@ -13,6 +14,7 @@ namespace SliceIt.Knife
         [Range(30, 85)]
         [SerializeField] private float degressToShoot = 85;
         private Vector3 directionToShoot;
+
 
         [SerializeField] private UnityEvent onKnifeAttacked;
 

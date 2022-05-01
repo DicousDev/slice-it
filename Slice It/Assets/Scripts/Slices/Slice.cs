@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace SliceIt.Slices
 {
     public sealed class Slice : MonoBehaviour
