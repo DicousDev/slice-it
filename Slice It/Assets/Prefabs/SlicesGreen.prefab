@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 2909574235779225836}
   - component: {fileID: 2909574236153714339}
   m_Layer: 0
-  m_Name: Slices
+  m_Name: SlicesGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -306,6 +306,7 @@ MonoBehaviour:
   colliderToDisabled: {fileID: 2909574235779225836}
   toDisabled: {fileID: 2909574235550470092}
   toEnabled: {fileID: 2909574236257517716}
+  particle: {fileID: 6780782405787150890, guid: b4d4bd7ae1e251148a08e7920aa2841e, type: 3}
 --- !u!1 &2909574236257517716
 GameObject:
   m_ObjectHideFlags: 0
