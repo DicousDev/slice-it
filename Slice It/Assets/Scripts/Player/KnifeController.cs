@@ -9,11 +9,14 @@ namespace SliceIt.Knife
         [SerializeField] private float forceToUpShoot = 200;
         [SerializeField] private float torqueShoot = 80;
         private bool canShoot = false;
+        private bool canAgainShoot = false;
 
         [Range(30, 85)]
         [SerializeField] private float degressToShoot = 85;
         private Vector3 directionToShoot;
 
+        [SerializeField] private float delayToAgainShoot = 0.5f;
+        private float delayToAgainShootCurrent;
 
         [SerializeField] private UnityEvent onKnifeAttacked;
 
@@ -24,14 +27,18 @@ namespace SliceIt.Knife
 
         private void Update()
         {
-            if(Input.GetMouseButtonDown(0))
+            if(canAgainShoot && Input.GetMouseButtonDown(0))
             {
                 canShoot = true;
-                if(rb.isKinematic)
+                canAgainShoot = false;
+                delayToAgainShootCurrent = delayToAgainShoot;
+                if (rb.isKinematic)
                 {
                     onKnifeAttacked?.Invoke();
                 }
             }
+
+            CheckDelayTimeToAgainShoot();
         }
 
         private void FixedUpdate()
@@ -48,6 +55,15 @@ namespace SliceIt.Knife
             canShoot = false;
             rb.AddForce(directionToShoot * forceToUpShoot);
             rb.AddTorque(Vector3.forward * torqueShoot);
+        }
+
+        private void CheckDelayTimeToAgainShoot()
+        {
+            delayToAgainShootCurrent -= Time.deltaTime;
+            if (delayToAgainShootCurrent <= 0)
+            {
+                canAgainShoot = true;
+            }
         }
 
         private void CalculateDirectionToForce()
