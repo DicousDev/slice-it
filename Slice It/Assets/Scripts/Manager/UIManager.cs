@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using SliceIt.ScriptableObjects.Utils.Events;
@@ -9,8 +8,10 @@ namespace SliceIt.Manager
     public sealed class UIManager : MonoBehaviour
     {
         [SerializeField] private GameEvent onStartGame = default;
+        [SerializeField] private GameEvent onGameWinner = default;
         [SerializeField] private GameEvent onGameOver = default;
         [SerializeField] private GameEvent onAddPoint = default;
+        [SerializeField] private GameObject winnerPanel;
         [SerializeField] private TextMeshProUGUI tapToPlayText;
         [SerializeField] private TextMeshProUGUI tapToPlayAgainText;
         [SerializeField] private TextMeshProUGUI pointsText;
@@ -26,6 +27,7 @@ namespace SliceIt.Manager
         {
             onStartGame.onGameEvent += DisableTapToPlay;
             onStartGame.onGameEvent += EnabledPointsText;
+            onGameWinner.onGameEvent += Winner;
             onGameOver.onGameEvent += GameOver;
             onAddPoint.onGameEvent += AddPointsRecently;
             GameManager.onAddedPoint += UpdatePoints;
@@ -35,9 +37,15 @@ namespace SliceIt.Manager
         {
             onStartGame.onGameEvent -= DisableTapToPlay;
             onStartGame.onGameEvent -= EnabledPointsText;
+            onGameWinner.onGameEvent -= Winner;
             onGameOver.onGameEvent -= GameOver;
             onAddPoint.onGameEvent -= AddPointsRecently;
             GameManager.onAddedPoint -= UpdatePoints;
+        }
+
+        private void Winner()
+        {
+            winnerPanel.SetActive(true);
         }
 
         private void AddPointsRecently()

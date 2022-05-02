@@ -12,8 +12,10 @@ namespace SliceIt.Manager
         public static event Action<int> onAddedPoint;
         [SerializeField] private GameState gameState = GameState.START;
         [SerializeField] private GameEvent onStartGame = default;
+        [SerializeField] private GameEvent onGameWinner = default;
         [SerializeField] private GameEvent onGameOver = default;
         [SerializeField] private GameEvent onAddPoints = default;
+        [SerializeField] private int slicesToWinner = 5;
         private int points;
         private StartAndEndGameInput gameInput;
 
@@ -39,6 +41,7 @@ namespace SliceIt.Manager
         private void Update()
         {
             CheckToStartGame();
+            CheckInWinnerToReloadLevel();
             CheckInGameOverToReloadLevel();
         }
 
@@ -46,6 +49,20 @@ namespace SliceIt.Manager
         {
             points++;
             onAddedPoint?.Invoke(points);
+            CheckWinner();
+        }
+
+        private void CheckWinner()
+        {
+            if (points < slicesToWinner) return;
+
+            Winner();
+        }
+
+        private void Winner()
+        {
+            gameState = GameState.WINNER;
+            onGameWinner.Raise();
         }
 
         private void GameOver()
@@ -63,13 +80,26 @@ namespace SliceIt.Manager
             }
         }
 
+        private void CheckInWinnerToReloadLevel()
+        {
+            if (gameState == GameState.WINNER && gameInput.StartEnd.StartEnd.triggered)
+            {
+                ReloadLevel();
+            }
+        }
+
         private void CheckInGameOverToReloadLevel()
         {
             if(gameState == GameState.GAMEOVER && gameInput.StartEnd.StartEnd.triggered)
             {
-                SceneManager.LoadScene(0);
-                Time.timeScale = 1;
+                ReloadLevel();
             }
+        }
+
+        private void ReloadLevel()
+        {
+            SceneManager.LoadScene(0);
+            Time.timeScale = 1;
         }
     }
 }

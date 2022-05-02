@@ -1,4 +1,4 @@
 namespace SliceIt.Enum
 {
-    public enum GameState { START, GAME, GAMEOVER };
+    public enum GameState { START, GAME, WINNER, GAMEOVER };
 }
