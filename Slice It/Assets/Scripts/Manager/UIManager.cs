@@ -10,19 +10,24 @@ namespace SliceIt.Manager
     {
         [SerializeField] private GameEvent onStartGame = default;
         [SerializeField] private GameEvent onGameOver = default;
+        [SerializeField] private GameEvent onAddPoint = default;
         [SerializeField] private TextMeshProUGUI tapToPlayText;
         [SerializeField] private TextMeshProUGUI tapToPlayAgainText;
         [SerializeField] private TextMeshProUGUI pointsText;
+        [SerializeField] private TextMeshProUGUI pointsAddedRecentlyText;
         [SerializeField] private float pointsFontSizeFinalAnimation = 50;
         [SerializeField] private float pointsFontSpeedAnimation = 0.7f;
         [SerializeField] private float delaySpeedPointsFont = 0.01f;
-        private bool isAnimationPoints = false;
+        private int pointsRecent = 0;
+        [SerializeField] private float delayToDisableRecentlyAddedPointsInSeconds = 1.5f;
+
 
         private void OnEnable()
         {
             onStartGame.onGameEvent += DisableTapToPlay;
             onStartGame.onGameEvent += EnabledPointsText;
             onGameOver.onGameEvent += GameOver;
+            onAddPoint.onGameEvent += AddPointsRecently;
             GameManager.onAddedPoint += UpdatePoints;
         }
 
@@ -31,7 +36,34 @@ namespace SliceIt.Manager
             onStartGame.onGameEvent -= DisableTapToPlay;
             onStartGame.onGameEvent -= EnabledPointsText;
             onGameOver.onGameEvent -= GameOver;
+            onAddPoint.onGameEvent -= AddPointsRecently;
             GameManager.onAddedPoint -= UpdatePoints;
+        }
+
+        private void AddPointsRecently()
+        {
+            pointsRecent++;
+            UpdateRecentPoints();
+            pointsAddedRecentlyText.enabled = true;
+            StopCoroutine(nameof(DisableRecentlyAddedPoints));
+            StartCoroutine(nameof(DisableRecentlyAddedPoints));
+        }
+
+        private void UpdateRecentPoints()
+        {
+            pointsAddedRecentlyText.text = "+" + pointsRecent.ToString();
+        }
+
+        private IEnumerator DisableRecentlyAddedPoints()
+        {
+            yield return new WaitForSeconds(delayToDisableRecentlyAddedPointsInSeconds);
+            pointsAddedRecentlyText.enabled = false;
+            resetPointsRecent();
+        }
+
+        private void resetPointsRecent()
+        {
+            pointsRecent = 0;
         }
 
         private void GameOver()
@@ -41,7 +73,7 @@ namespace SliceIt.Manager
 
         private void UpdatePoints(int points)
         {
-            StartCoroutine(AnimationPoints());
+            StartCoroutine(AnimatePointsWhenReceiving());
             pointsText.text = "Points: " + points.ToString();
         }
 
@@ -56,9 +88,8 @@ namespace SliceIt.Manager
             tapToPlayText.enabled = false;
         }
 
-        private IEnumerator AnimationPoints()
+        private IEnumerator AnimatePointsWhenReceiving()
         {
-            isAnimationPoints = true;
             float fontSizeStart = pointsText.fontSizeMax;
             while (pointsText.fontSize < pointsFontSizeFinalAnimation)
             {
@@ -71,8 +102,6 @@ namespace SliceIt.Manager
                 pointsText.fontSizeMax -= pointsFontSpeedAnimation;
                 yield return new WaitForSeconds(delaySpeedPointsFont);
             }
-
-            isAnimationPoints = false;
         }
     }
 }

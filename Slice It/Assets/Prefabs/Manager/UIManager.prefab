@@ -45,6 +45,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onStartGame: {fileID: 11400000, guid: eada405e00da1cf409bccb21609eb318, type: 2}
   onGameOver: {fileID: 11400000, guid: 1e7d00964c77e7f46974d0f12e5a023e, type: 2}
+  onAddPoint: {fileID: 11400000, guid: 1676f1e2aa93660439e6e1e0f12f51f2, type: 2}
   tapToPlayText: {fileID: 0}
   tapToPlayAgainText: {fileID: 0}
   pointsText: {fileID: 0}
+  pointsAddedRecentlyText: {fileID: 0}
+  pointsFontSizeFinalAnimation: 50
+  pointsFontSpeedAnimation: 0.86
+  delaySpeedPointsFont: 0.01
+  delayToDisableRecentlyAddedPointsInSeconds: 1.5
